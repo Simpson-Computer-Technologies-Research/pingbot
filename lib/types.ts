@@ -1,4 +1,8 @@
-import { RESTPostAPIChatInputApplicationCommandsJSONBody } from "discord.js";
+import {
+  CacheType,
+  Interaction,
+  RESTPostAPIChatInputApplicationCommandsJSONBody,
+} from "discord.js";
 
 /**
  * Type for a slash command
@@ -6,5 +10,5 @@ import { RESTPostAPIChatInputApplicationCommandsJSONBody } from "discord.js";
 export type Command = {
   name: string;
   data: RESTPostAPIChatInputApplicationCommandsJSONBody;
-  handler: (interaction: any) => Promise<void>;
+  handler: (interaction: Interaction<CacheType>) => Promise<void>;
 };
