@@ -1,5 +1,9 @@
 import { Client, Events, GatewayIntentBits } from "discord.js";
+
+// Command handler
 import Commands from "./lib/commands";
+
+// Ping Command
 import { PingCommand } from "./commands/ping";
 
 // Initialize the commands
