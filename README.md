@@ -1,4 +1,4 @@
-# discordbots
+# pingbot
 
 To install dependencies:
 
