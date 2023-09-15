@@ -1,4 +1,4 @@
-import { Client, Events } from "discord.js";
+import { CacheType, Client, Events, Interaction } from "discord.js";
 import { Command } from "./types";
 
 /**
@@ -8,7 +8,7 @@ export default class Commands {
   /**
    * Store all of the commands
    */
-  private commands: { [key: string]: Command } = {};
+  private storage: { [key: string]: Command } = {};
 
   /**
    * Set a command
@@ -16,11 +16,11 @@ export default class Commands {
    * @param command The command
    * @returns The command
    */
-  public set(command: Command) {
-    if (this.commands[command.name])
-      throw new Error(`Command ${command.name} already exists`);
+  public set(cmd: Command) {
+    if (this.storage[cmd.name])
+      throw new Error(`Command ${cmd.name} already exists`);
 
-    this.commands[command.name] = command;
+    this.storage[cmd.name] = cmd;
   }
 
   /**
@@ -29,18 +29,23 @@ export default class Commands {
    * @returns The client
    */
   public init(client: Client) {
-    for (const command of Object.values(this.commands)) {
-      client.application?.commands.create(command.data);
+    for (const c of Object.values(this.storage)) {
+      if (!c.data) continue;
+
+      client.application?.commands.create(c.data);
     }
 
-    client.on(Events.InteractionCreate, async (interaction) => {
-      if (!interaction.isCommand()) return;
+    client.on(
+      Events.InteractionCreate,
+      async (interaction: Interaction<CacheType>) => {
+        if (!interaction.isCommand()) return;
 
-      const commandName: string = interaction.commandName;
-      const command: Command = this.commands[commandName];
+        const name: string = interaction.commandName;
+        const cmd: Command = this.storage[name];
 
-      if (command) command.handler(interaction);
-    });
+        if (cmd) cmd.handler(interaction);
+      }
+    );
 
     return client;
   }

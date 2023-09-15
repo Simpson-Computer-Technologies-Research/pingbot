@@ -9,6 +9,6 @@ import {
  */
 export type Command = {
   name: string;
-  data: RESTPostAPIChatInputApplicationCommandsJSONBody;
+  data: RESTPostAPIChatInputApplicationCommandsJSONBody | null;
   handler: (interaction: Interaction<CacheType>) => Promise<void>;
 };
