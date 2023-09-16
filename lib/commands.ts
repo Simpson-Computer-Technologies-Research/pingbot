@@ -43,7 +43,7 @@ export default class Commands {
         const name: string = interaction.commandName;
         const cmd: Command = this.storage[name];
 
-        if (cmd) cmd.handler(interaction);
+        if (cmd) await cmd.handler(interaction);
       }
     );
 

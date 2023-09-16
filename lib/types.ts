@@ -1,5 +1,4 @@
 import {
-  CacheType,
   Interaction,
   RESTPostAPIChatInputApplicationCommandsJSONBody,
 } from "discord.js";
@@ -10,5 +9,5 @@ import {
 export type Command = {
   name: string;
   data: RESTPostAPIChatInputApplicationCommandsJSONBody | null;
-  handler: (interaction: Interaction<CacheType>) => Promise<void>;
+  handler: (interaction: Interaction) => Promise<void>;
 };
